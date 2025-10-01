@@ -1,10 +1,10 @@
 ## To-Do-List
 # Clonar repositorio desde GitLab
 
-- git clone https://gitlab.com/edercortez10/to-do-list.git
+- git clone git@github.com:edercabezas/to-do-list.git
 - rama (master)
 
-## Instalar
+## Instalaciones de dependencias
 
 # Asegurese de instalar Ionic 
 
@@ -22,24 +22,46 @@ npm install -g @ionic/angular
 
 
 ## Instrucciones de compilacion de la aplicacion 
-# asegurese de instalar cordova usando
-- npm install -g cordova el -g hace referencia que la instalacion sera global 
+
+# asegurese de instalar capacitor usando
+- npm install @capacitor/core @capacitor/cli @capacitor/android
+
+## PAra abrir la aplicacion en Android Studio
+# Compilar el proyecto para generar la aplicacion para ios, android y web
+ - ionic build  
+
+# genera la carpeta apra la plataforma android
+- npx cap add android
+
+# Sincroniza los archivos con la carpeta de android
+- npx cap sync android
+
+# Abrir la aplicacion en Android studio
+- npx cap open android
 
 
-- por lo general en las ultimas versiones de Ionic vine por defecto capacitor toca deshabilitarlo y intalar cordova
 
-# deshabilitar capacitor y habilitar cordova
-- ionic integrations disable capacitor
-- ionic integrations enable cordova
+## Instalar la aplicacion  directamente en el celular
 
 
-# Instalar  cordova
+# generar el proyecto
+- ionic build
 
-- npm install -g cordova
+# Añadir la plataforma de android
+- npx cap add android
 
-# En mic aso como estoy con sistema operativo windows puedo agregar la plataforma para Android 
+# Sincronizar la platraforma de android
+- npx cap sync android
 
-- ionic cordova platform add android
+# entrar a android
+- cd android
 
-# Construir la  aplicacion para Android 
-- ionic cordova build android --release
+# Conecta el dispositivo android a su computadora  y activa el depurador USB 
+
+# generar la app
+- gradlew assembleDebug
+
+# Instalar la apk en el movíl
+- adb install -r app\build\outputs\apk\debug\app-debug.apk
+
+## tener en cuenta que para esto debes tener instalado java y configuar las variables de entorno es importante este paso ##
