@@ -1,0 +1,134 @@
+
+<ion-content fullscreen class="login-page">
+
+
+<div class="container__list__category">
+    <div class="container__title">
+        <h2>Tarea</h2>
+    </div>
+
+
+
+      <div class="container__create__category">
+        <ion-button
+          expand="block"
+          fill="outline"
+          class="btn-register"
+          routerLink="/dashboard/task"
+        >
+          Listar tarea
+          <ion-icon name="list"></ion-icon>
+        </ion-button>
+      </div>
+
+
+
+  <div class="icontainer__category">
+    <ion-card class="custom-card">
+      <!-- <ion-card-header>
+        <ion-card-title>
+          <h2>Crear Tarea</h2>
+        </ion-card-title>
+      </ion-card-header> -->
+
+
+
+      <ion-card-content>
+        <form [formGroup]="formTask" class="form-container">
+          <ion-item lines="none">
+            <ion-label position="floating">Tarea</ion-label>
+            <ion-input formControlName="task"></ion-input>
+          </ion-item>
+
+          @if(formTask.get('task')?.touched &&
+          formTask.get('task')?.hasError('required')) {
+          <ion-text color="danger">
+            El nombre es de caracter Obligatorio!.
+          </ion-text>
+          }
+
+          <ion-item lines="none">
+            <ion-label>Categoria</ion-label>
+
+            <ion-select
+              formControlName="category"
+              placeholder="Seleccione una categoría"
+            >
+              @for (item of categoryData; track $index) {
+              <ion-select-option [value]="item.id">{{
+                item.category
+              }}</ion-select-option>
+              }
+            </ion-select>
+          </ion-item>
+
+          @if(formTask.get('category')?.touched &&
+          formTask.get('category')?.hasError('required')) {
+          <ion-text color="danger">
+            La categoria es de caracter Obligatorio!.
+          </ion-text>
+          }
+
+          <ion-item lines="none">
+            <ion-label>Estado dela tarea</ion-label>
+            <ion-select
+              formControlName="status"
+              placeholder="Seleccione el estado"
+            >
+              <ion-select-option value="Tarea completada"
+                >Tarea completada</ion-select-option
+              >
+              <ion-select-option value="Tarea no completada"
+                >Tarea no completada</ion-select-option
+              >
+            </ion-select>
+          </ion-item>
+
+          @if(formTask.get('status')?.touched &&
+          formTask.get('status')?.hasError('required')) {
+          <ion-text color="danger">
+            El estado es de caracter Obligatorio!..
+          </ion-text>
+          }
+
+          <ion-item lines="none">
+            <ion-label position="floating">Descripción de la tarea</ion-label>
+            <ion-textarea
+              formControlName="description"
+              [counter]="true"
+              maxlength="100"
+              autoGrow="true"
+            >
+            </ion-textarea>
+          </ion-item>
+
+          <div class="button-group">
+            <ion-button expand="block" color="success" id="present-alert-task"
+              >Guardar</ion-button
+            >
+            <ion-button expand="block" color="medium"  routerLink="/dashboard/task"
+              >Cancelar</ion-button
+            >
+          </div>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  </div>
+  <ion-alert
+    trigger="present-alert-task"
+    header="Categoria!"
+    message="Estas seguro que quieres guardar este registro?"
+    [buttons]="alertButtons"
+    (didDismiss)="setResult($event)"
+  ></ion-alert>
+
+  <ion-alert
+    [isOpen]="isAlertOpen"
+    header="Genial"
+    message="Registro guardado exitosamente!."
+    [buttons]="alertButtons2"
+    (didDismiss)="setOpen(false)"
+  ></ion-alert>
+</ion-content>

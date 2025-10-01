@@ -1,0 +1,82 @@
+<ion-content fullscreen class="login-page">
+  <div class="container__list__category">
+    <div class="container__title">
+      <h2>Lista de Tareas</h2>
+    </div>
+
+    <div class="container__create__category">
+      <ion-button
+        expand="block"
+        fill="outline"
+        class="btn-register"
+        routerLink="/dashboard/task/create-task"
+      >
+        Crear tarea
+        <ion-icon name="list"></ion-icon>
+      </ion-button>
+    </div>
+
+    <div class="container__filters">
+      <ion-item>
+        <ion-select
+          aria-label="Filtrar por categorias"
+          placeholder="Filtrar por categorias"
+          value="apple"
+          (ionChange)="onCategoryChange($event)"
+        >
+          @for (item of dataCategory; track $index) {
+          <ion-select-option [value]="item.id">{{
+            item.category
+          }}</ion-select-option>
+          }
+        </ion-select>
+      </ion-item>
+    </div>
+
+    @for (item of dataTask; track $index) {
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Tarea: {{ item.task }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="container__status">
+          <span>Categoria: {{ item.cate }}</span>
+        </div>
+
+        <div class="container__status">
+          <span>Estado: {{ item.status }}</span>
+        </div>
+        <div class="container__description">
+          <span>Descripón: {{ item.description }}</span>
+        </div>
+        <div class="container__action">
+          <ion-icon
+            name="create"
+            class="edit"
+            (click)="editTask(item.id)"
+          ></ion-icon>
+          <ion-icon
+            name="trash"
+            class="delete"
+            (click)="deleteTask(item.id)"
+          ></ion-icon>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    }
+  </div>
+
+  @if (reload) {
+  <app-loading></app-loading>
+  }
+
+  <ion-alert
+    [isOpen]="isAlertOpen"
+    header="Operacion Exitosa"
+    message="La Tarea fue eliminada exitosamente."
+    [buttons]="alertButtons"
+    (didDismiss)="setOpen(false)"
+  >
+  </ion-alert>
+</ion-content>

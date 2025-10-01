@@ -1,0 +1,103 @@
+<ion-content fullscreen class="login-page">
+<div class="container__list__category">
+  <div class="container__title">
+    <h2>Categoria</h2>
+  </div>
+
+  <div class="container__create__category">
+    <ion-button
+      expand="block"
+      fill="outline"
+      class="btn-register"
+      routerLink="/dashboard/category"
+    >
+      Listar categoria
+      <ion-icon name="add"></ion-icon>
+    </ion-button>
+  </div>
+
+
+  <div class="icontainer__category">
+    <ion-card class="custom-card">
+      <ion-card-header>
+        <ion-card-title>
+          <h2>Crear Categoría</h2>
+        </ion-card-title>
+      </ion-card-header>
+
+
+
+      <ion-card-content>
+        <form [formGroup]="formCategory" class="form-container">
+          <ion-item lines="none">
+            <ion-label position="floating">Nombre de la categoría</ion-label>
+            <ion-input formControlName="category"></ion-input>
+          </ion-item>
+          @if(formCategory.get('category')?.touched &&
+          formCategory.get('category')?.hasError('required')) {
+          <ion-text color="danger">
+            El nombre es de caracter Obligatorio!.
+          </ion-text>
+          }
+
+          <ion-item lines="none">
+            <ion-label>Estado</ion-label>
+            <ion-select
+              formControlName="status"
+              placeholder="Seleccione el estado"
+            >
+              <ion-select-option value="Activa">Activa</ion-select-option>
+              <ion-select-option value="Inactiva">Inactiva</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          @if(formCategory.get('status')?.touched &&
+          formCategory.get('status')?.hasError('required')) {
+          <ion-text color="danger">
+            El estado es de caracter Obligatorio!.
+          </ion-text>
+          }
+
+          <ion-item lines="none">
+            <ion-label position="floating"
+              >Descripción de la categoría</ion-label
+            >
+            <ion-textarea
+              formControlName="description"
+              [counter]="true"
+              maxlength="100"
+              autoGrow="true"
+            >
+            </ion-textarea>
+          </ion-item>
+
+          <div class="button-group">
+            <ion-button expand="block" color="success" id="present-alert"
+              >Guardar</ion-button
+            >
+            <ion-button expand="block" color="medium" routerLink="/dashboard/category"
+              >Cancelar</ion-button
+            >
+          </div>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  </div>
+
+  <ion-alert
+    trigger="present-alert"
+    header="Categoria!"
+    message="Estas seguro que quieres guardar este registro?"
+    [buttons]="alertButtons"
+    (didDismiss)="setResult($event)"
+  ></ion-alert>
+
+  <ion-alert
+    [isOpen]="isAlertOpen"
+    header="Genial"
+    message="El registro fue guardado exitosamente!."
+    [buttons]="alertButtons2"
+    (didDismiss)="setOpen(false)"
+  ></ion-alert>
+</ion-content>

@@ -1,0 +1,61 @@
+<ion-content fullscreen class="login-page">
+<div class="container__list__category">
+  <div class="container__title">
+    <h2>Categorias</h2>
+  </div>
+
+  <div class="container__create__category">
+    <ion-button
+      expand="block"
+      fill="outline"
+      class="btn-register"
+      routerLink="/dashboard/category/create-category"
+    >
+      Crear Categoria
+      <ion-icon name="add"></ion-icon>
+    </ion-button>
+  </div>
+
+  @for (item of dataCategory; track $index) {
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Categoria: {{ item.category }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="container__status">
+        <span>Estado: {{ item.status }}</span>
+      </div>
+      <div class="container__description">
+        <span>Descripón: {{ item.description }}</span>
+      </div>
+      <div class="container__action">
+        <ion-icon
+          name="create"
+          class="edit"
+          (click)="editCategory(item.id)"
+        ></ion-icon>
+        <ion-icon
+          name="trash"
+          class="delete"
+          (click)="deleteCategory(item.id)"
+        ></ion-icon>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  }
+</div>
+
+@if (reload) {
+<app-loading></app-loading>
+}
+
+<ion-alert
+  [isOpen]="isAlertOpen"
+  header="Operacion Exitosa"
+  message="La categoria fue eliminada exitosamente."
+  [buttons]="alertButtons"
+  (didDismiss)="setOpen(false)"
+></ion-alert>
+
+</ion-content>
